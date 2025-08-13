@@ -54,7 +54,7 @@ const AdminDashboard = () => {
           </div>
         </aside>
 
-        <main className="flex-1 bg-green-200 min-h-screen p-4">
+        <main className="flex-1 bg-blue-50 min-h-screen p-4">
           <Outlet />
         </main>
       </div>

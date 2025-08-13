@@ -1,4 +1,4 @@
-import api from './api'; 
+import api from './api';
 import { Doctor } from '../store/doctorsSlice';
 
 const doctorService = {
@@ -6,7 +6,18 @@ const doctorService = {
     const res = await api.get('/doctors', {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return res.data.data;
+
+    const parsedDoctors = res.data.data.map((doc: any) => ({
+      ...doc,
+      available_days: JSON.parse(
+        doc.available_days
+          .replace(/{/g, '[')
+          .replace(/}/g, ']')
+          .replace(/"/g, '"') 
+      ),
+    }));
+
+    return parsedDoctors;
   },
 
   deleteDoctor: async (id: number, token: string): Promise<void> => {
